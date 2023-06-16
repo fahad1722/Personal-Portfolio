@@ -1,0 +1,10 @@
+# Node.js dependencies
+**/node_modules/
+**/node_modules/**/
+
+# Build output
+**/build/
+**/build/**/
+
+# Environment files
+backEnd/.env
