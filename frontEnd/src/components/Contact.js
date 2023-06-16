@@ -276,7 +276,7 @@ const Contact = () => {
             boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
           }}
         >
-          <Typography variant="h4" color = "primary.main"sx={{ marginBottom: "20px" }}>
+          <Typography variant="h4" color="primary.main" sx={{ marginBottom: "20px" }}>
             Contact Form
           </Typography>
           <form onSubmit={handleSubmit}>
@@ -315,38 +315,38 @@ const Contact = () => {
           </form>
         </Box>
       </Box>
-      <Dialog open={open} onClose={handleClose}>
-  <Box
-    sx={{
-      width: "300px",
-      padding: "30px",
-      borderRadius: "5px",
-      backgroundColor: "white",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    }}
-  >
-    <Typography variant="h5" sx={{ marginBottom: "20px" }}>
-      {emailSent ? "Email Sent" : "Error Sending Email"}
-    </Typography>
-    <Typography variant="body1">
-      {emailSent
-        ? "Thank you for reaching out. I'll get back to you as soon as possible."
-        : "Oops! An error occurred while sending your email. Please try again later."}
-    </Typography>
-    <Button
-      onClick={handleClose}
-      variant="contained"
-      color="primary"
-      sx={{ marginTop: "20px", alignSelf: "center" }}
-    >
-      Close
-    </Button>
-  </Box>
-</Dialog>
-
+      <ContactDialog open={open} emailSent={emailSent} handleClose={handleClose} />
     </Box>
+  );
+};
+
+const ContactDialog = ({ open, emailSent, handleClose }) => {
+  return (
+    <Dialog open={open} onClose={handleClose}>
+      <Box
+        sx={{
+          width: "300px",
+          padding: "30px",
+          borderRadius: "5px",
+          backgroundColor: "white",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h5" sx={{ marginBottom: "20px" }}>
+          {emailSent ? "Email Sent" : "Error Sending Email"}
+        </Typography>
+        <Typography variant="body1">
+          {emailSent
+            ? "Thank you for reaching out. I'll get back to you as soon as possible."
+            : "Oops! An error occurred while sending your email. Please try again later."}
+        </Typography>
+        <Button onClick={handleClose} variant="contained" color="primary" sx={{ marginTop: "20px", alignSelf: "center" }}>
+          Close
+        </Button>
+      </Box>
+    </Dialog>
   );
 };
 
