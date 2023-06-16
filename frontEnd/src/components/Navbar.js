@@ -29,7 +29,7 @@ const Navbar = () => {
             color: 'white',
           }}
         >
-          Mohammed Fahad
+        Fahad's Portfolio
         </Typography>
 
         <Tabs value={value} onChange={handleChange} sx={{ marginLeft: 'auto' }}>

@@ -1,22 +1,46 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import Resume from "../assets/Resume.pdf"; 
+import Resume from "../assets/Resume.pdf";
+import Typed from "typed.js";
 
-const Home = () => (
-  <Box
-    id="home"
-    minHeight="100vh"
-    display="flex"
-    flexDirection="row"
-    justifyContent="center"
-    alignItems="center"
-    bgcolor="primary.main"
-    color="white"
-  >
-    <LeftComponent />
-    <RightComponent />
-  </Box>
-);
+const Home = () => {
+  const typedRef = useRef(null);
+
+  useEffect(() => {
+    const strings = [
+      "I'm a MERN Stack Developer.",
+      "This is my personal portfolio website.",
+    ];
+
+    const options = {
+      strings: strings,
+      typeSpeed: 40,
+      loop: true,
+    };
+
+    typedRef.current = new Typed("#element", options);
+
+    return () => {
+      typedRef.current.destroy();
+    };
+  }, []);
+
+  return (
+    <Box
+      id="home"
+      minHeight="100vh"
+      display="flex"
+      flexDirection="row"
+      justifyContent="center"
+      alignItems="center"
+      bgcolor="primary.main"
+      color="white"
+    >
+      <LeftComponent />
+      <RightComponent />
+    </Box>
+  );
+};
 
 const LeftComponent = () => (
   <Box
@@ -46,10 +70,7 @@ const LeftComponent = () => (
       </Typography>
     </Box>
     <Typography variant="h5" sx={{ marginTop: "20px" }}>
-      I'm a MERN Stack Developer.
-    </Typography>
-    <Typography variant="h5" sx={{ marginTop: "20px" }}>
-      This is my personal portfolio website.
+      <span id="element"></span>
     </Typography>
   </Box>
 );
@@ -63,13 +84,15 @@ const RightComponent = () => (
     padding={4}
   >
     <Typography variant="p1" sx={{ fontSize: "20px", textAlign: "justify" }}>
-      Hi, I'm Mohammed Fahad, a passionate MERN Stack Developer with experience in building web applications. I love coding and enjoy solving complex problems to create efficient and user-friendly solutions.
+      Hi, I'm Mohammed Fahad, a passionate MERN Stack Developer with experience
+      in building web applications. I love coding and enjoy solving complex
+      problems to create efficient and user-friendly solutions.
     </Typography>
     <Box mt={4}>
       <Button
         variant="contained"
         color="warning"
-        href={Resume} 
+        href={Resume}
         target="_blank"
         rel="noopener noreferrer"
         sx={{ marginRight: 2 }}
@@ -79,8 +102,8 @@ const RightComponent = () => (
       <Button
         variant="contained"
         color="secondary"
-        href={Resume} 
-        download="Resume.pdf" 
+        href={Resume}
+        download="Resume.pdf"
       >
         Download Resume
       </Button>

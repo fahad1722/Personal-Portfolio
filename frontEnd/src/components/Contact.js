@@ -9,6 +9,7 @@ import {
   Table,
   TableCell,
   TableRow,
+  Dialog,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -30,10 +31,13 @@ const Contact = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [hoveredIcon, setHoveredIcon] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Change the fetch URL to match your backend server address
-    fetch("/send-email", {
+    fetch("https://email-backend-aqlv.onrender.com/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,12 +47,17 @@ const Contact = () => {
       .then((response) => {
         if (response.ok) {
           console.log("Email sent successfully");
+          setEmailSent(true);
         } else {
           console.log("Error sending email");
+          setEmailSent(false);
         }
+        setOpen(true);
       })
       .catch((error) => {
         console.log(error);
+        setEmailSent(false);
+        setOpen(true);
       });
     // Reset the form fields
     setName("");
@@ -62,6 +71,10 @@ const Contact = () => {
 
   const handleIconLeave = () => {
     setHoveredIcon(null);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const renderIconName = (icon) => {
@@ -253,51 +266,88 @@ const Contact = () => {
         </Box>
       </Box>
       <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
-        <Box sx={{ maxWidth: "400px", bgcolor: "white", p: 3 }}>
-          <Box sx={{ mt: 4 }}>
-            <Typography variant="h4" color="primary.main" mb={2}>
-              Contact Form
-            </Typography>
-            <form onSubmit={handleSubmit}>
-              <TextField
-                label="Name"
-                fullWidth
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                margin="normal"
-              />
-              <TextField
-                label="Email"
-                fullWidth
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                margin="normal"
-              />
-              <TextField
-                label="Message"
-                fullWidth
-                multiline
-                rows={4}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                required
-                margin="normal"
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={{ mt: 2 }}
-              >
-                Submit
-              </Button>
-            </form>
-          </Box>
+        <Box
+          sx={{
+            maxWidth: "500px",
+            width: "100%",
+            padding: "30px",
+            borderRadius: "5px",
+            backgroundColor: "white",
+            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          <Typography variant="h4" color = "primary.main"sx={{ marginBottom: "20px" }}>
+            Contact Form
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              required
+              fullWidth
+              variant="outlined"
+              label="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              sx={{ marginBottom: "20px" }}
+            />
+            <TextField
+              required
+              fullWidth
+              variant="outlined"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              sx={{ marginBottom: "20px" }}
+            />
+            <TextField
+              required
+              fullWidth
+              variant="outlined"
+              label="Message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              multiline
+              rows={4}
+              sx={{ marginBottom: "20px" }}
+            />
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+          </form>
         </Box>
       </Box>
+      <Dialog open={open} onClose={handleClose}>
+  <Box
+    sx={{
+      width: "300px",
+      padding: "30px",
+      borderRadius: "5px",
+      backgroundColor: "white",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+    }}
+  >
+    <Typography variant="h5" sx={{ marginBottom: "20px" }}>
+      {emailSent ? "Email Sent" : "Error Sending Email"}
+    </Typography>
+    <Typography variant="body1">
+      {emailSent
+        ? "Thank you for reaching out. I'll get back to you as soon as possible."
+        : "Oops! An error occurred while sending your email. Please try again later."}
+    </Typography>
+    <Button
+      onClick={handleClose}
+      variant="contained"
+      color="primary"
+      sx={{ marginTop: "20px", alignSelf: "center" }}
+    >
+      Close
+    </Button>
+  </Box>
+</Dialog>
+
     </Box>
   );
 };
+
 export default Contact;
