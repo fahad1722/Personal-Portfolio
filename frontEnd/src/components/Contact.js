@@ -33,7 +33,7 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Change the fetch URL to match your backend server address
-    fetch("https://portfolioapp-ad5v.onrender.com/send-email", {
+    fetch("/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
