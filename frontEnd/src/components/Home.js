@@ -8,8 +8,8 @@ const Home = () => {
 
   useEffect(() => {
     const strings = [
-      "I'm a MERN Stack Developer.",
-      "This is my personal portfolio website.",
+      "I'm a MERN Stack Developer",
+      "This is my personal portfolio website",
     ];
 
     const options = {
