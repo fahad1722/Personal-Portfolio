@@ -1,17 +1,24 @@
-# Step 1: Build the JAR using Maven
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+# Use Maven with JDK 17 for building the app
+FROM maven:3.9.9-eclipse-temurin-17 AS build
+
 WORKDIR /app
+
+# Copy pom.xml and download dependencies first (for caching)
 COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
+# Copy source code and build (skip tests)
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Step 2: Use OpenJDK base image to run the app
-FROM openjdk:17-jdk-slim
-WORKDIR /app
-COPY --from=build /app/target/*.jar email-backend-1.0.jar
+# Run stage: lightweight JDK image
+FROM eclipse-temurin:17-jdk
 
-# Step 3: Expose the app port
+WORKDIR /app
+
+# Copy the jar file from build stage (name comes from your pom config)
+COPY --from=build /app/target/app.jar app.jar
+
 EXPOSE 8080
 
-# Step 4: Run the JAR file
-ENTRYPOINT ["java", "-jar", "email-backend-1.0.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
