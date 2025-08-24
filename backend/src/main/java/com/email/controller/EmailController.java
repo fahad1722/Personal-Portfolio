@@ -18,7 +18,7 @@ import jakarta.mail.MessagingException;
 
 @RestController
 @RequestMapping("/send-email")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://codewithfahad.vercel.app")
 public class EmailController {
 
     private static final Logger logger = LoggerFactory.getLogger(EmailController.class);
