@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, Home, Code, Folder, Mail, Github, Linkedin, Briefcase, Twitter } from 'lucide-react';
 
 const Navbar = () => {
-  const location = useLocation();
   const [currentPath, setCurrentPath] = useState('/');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Update current path when location changes
-  useEffect(() => {
-    setCurrentPath(location.pathname);
-  }, [location]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -35,13 +28,13 @@ const Navbar = () => {
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Righteous&family=Audiowide&family=Exo+2:wght@400;700&display=swap" rel="stylesheet" />
       
-      <nav className="bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 backdrop-blur-md fixed top-0 w-full z-50 border-b border-white/10">
+      <nav className="bg-slate-900/95 md:bg-gradient-to-r md:from-slate-900 md:via-purple-900 md:to-slate-900 md:backdrop-blur-md fixed top-0 w-full z-50 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex-shrink-0 group">
-              <NavLink
-                to="/"
+              <a
+                href="/"
                 className={`text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent hover:from-purple-400 hover:to-pink-400 transition-all duration-300 transform hover:scale-105 ${
                   currentPath === '/' ? 'scale-105' : ''
                 }`}
@@ -53,7 +46,7 @@ const Navbar = () => {
                 }}
               >
                 FAHAD
-              </NavLink>
+              </a>
             </div>
 
             {/* Desktop Menu */}
@@ -62,18 +55,18 @@ const Navbar = () => {
                 {navItems.map((item) => {
                   const IconComponent = item.icon;
                   return (
-                    <NavLink
+                    <a
                       key={item.path}
-                      to={item.path}
+                      href={item.path}
                       className={`group flex items-center px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105 ${
                         currentPath === item.path
                           ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
-                          : 'text-gray-300 hover:text-white hover:bg-white/10 backdrop-blur-sm'
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       <IconComponent className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform duration-300" />
                       {item.label}
-                    </NavLink>
+                    </a>
                   );
                 })}
               </div>
@@ -82,9 +75,9 @@ const Navbar = () => {
             {/* Social Icons - Desktop */}
             <div className="hidden lg:flex items-center space-x-3">
               {[
-                { Icon: Github, url: 'https://github.com/fahad' },
-                { Icon: Linkedin, url: 'https://linkedin.com/in/fahad' },
-                { Icon: Twitter, url: 'https://twitter.com/fahad' }
+                { Icon: Github, url: 'https://github.com/fahad1722' },
+                { Icon: Linkedin, url: 'https://linkedin.com/in/fahad177' },
+                { Icon: Twitter, url: 'https://twitter.com/fahad177__' }
               ].map(({ Icon, url }, index) => (
                 <a
                   key={index}
@@ -121,14 +114,14 @@ const Navbar = () => {
             ? 'max-h-screen opacity-100 translate-y-0' 
             : 'max-h-0 opacity-0 -translate-y-4 overflow-hidden'
         }`}>
-          <div className="bg-slate-900/95 backdrop-blur-xl border-t border-white/10 shadow-2xl">
+          <div className="bg-slate-900/98 border-t border-white/10 shadow-2xl">
             <div className="px-4 pt-4 pb-6 space-y-2">
               {navItems.map((item, index) => {
                 const IconComponent = item.icon;
                 return (
-                  <NavLink
+                  <a
                     key={item.path}
-                    to={item.path}
+                    href={item.path}
                     onClick={closeMobileMenu}
                     className={`group flex items-center w-full px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 hover:scale-105 ${
                       currentPath === item.path
@@ -142,16 +135,16 @@ const Navbar = () => {
                   >
                     <IconComponent className="mr-4 h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
                     {item.label}
-                  </NavLink>
+                  </a>
                 );
               })}
 
               {/* Social Icons - Mobile */}
               <div className="flex justify-center space-x-6 pt-6 border-t border-white/10 mt-4">
                 {[
-                  { Icon: Github, url: 'https://github.com/fahad' },
-                  { Icon: Linkedin, url: 'https://linkedin.com/in/fahad' },
-                  { Icon: Twitter, url: 'https://twitter.com/fahad' }
+                  { Icon: Github, url: 'https://github.com/fahad1722' },
+                  { Icon: Linkedin, url: 'https://linkedin.com/in/fahad177' },
+                  { Icon: Twitter, url: 'https://twitter.com/fahad177__' }
                 ].map(({ Icon, url }, index) => (
                   <a
                     key={index}
@@ -171,7 +164,7 @@ const Navbar = () => {
         {/* Mobile menu backdrop */}
         {isMobileMenuOpen && (
           <div 
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300"
+            className="fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300"
             onClick={closeMobileMenu}
           />
         )}
