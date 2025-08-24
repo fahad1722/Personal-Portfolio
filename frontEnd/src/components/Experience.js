@@ -11,12 +11,6 @@ const Experience = () => {
       period: "September 2024 - Present",
       type: "Full-time",
       description: "Working on enterprise supply chain management solutions, developing microservices and implementing cutting-edge technologies to enhance system performance and reliability across the LSP platform. Actively working on new feature development and resolving customer bugs in a timely manner to ensure optimal user experience.",
-      achievements: [
-        "Consistently delivered new features and enhancements on schedule",
-        "Successfully resolved customer-reported bugs within SLA timeframes",
-        "Collaborated effectively with cross-functional teams to deliver quality solutions",
-        "Maintained high code quality standards and followed best practices"
-      ],
       technologies: ["Java 17", "Spring Boot 3.4", "Spring AOP", "Apache PDFBox", "Spring Security 6+", "Jakarta EE", "Microservices", "Data Streaming", "Oracle DB", "Swagger", "Postman", "Git", "Bitbucket", "JIRA", "IntelliJ IDEA", "STS", "Confluence"],
       companyUrl: "https://www.e2open.com",
       projects: [
@@ -67,15 +61,13 @@ const Experience = () => {
     }
   ];
 
-
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 pt-16">
       {/* Header Section */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-12">
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-           A showcase of my professional career, highlighting my work, contributions, and the impact I’ve made as a Java Backend Developer.
+           A showcase of my professional career, highlighting my work, contributions, and the impact I've made as a Java Backend Developer.
           </p>
         </div>
 
@@ -129,19 +121,6 @@ const Experience = () => {
 
                   {/* Description */}
                   <p className="text-gray-700 mb-6 leading-relaxed">{exp.description}</p>
-
-                  {/* Key Responsibilities */}
-                  <div className="mb-6">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-3">Key Responsibilities</h4>
-                    <ul className="space-y-2">
-                      {exp.achievements.map((achievement, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                          <span className="text-gray-700">{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
 
                   {/* Projects Section */}
                   {exp.projects && (
