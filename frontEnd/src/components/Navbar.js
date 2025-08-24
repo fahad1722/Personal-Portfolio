@@ -91,8 +91,8 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden">
+            {/* Mobile menu button - Hidden since we're using bottom nav */}
+            <div className="md:hidden opacity-0 pointer-events-none">
               <button
                 onClick={toggleMobileMenu}
                 className="inline-flex items-center justify-center p-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:scale-110"
@@ -108,66 +108,28 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile menu */}
-        <div className={`md:hidden transition-all duration-500 ease-out ${
-          isMobileMenuOpen 
-            ? 'max-h-screen opacity-100 translate-y-0' 
-            : 'max-h-0 opacity-0 -translate-y-4 overflow-hidden'
-        }`}>
-          <div className="bg-slate-900/98 border-t border-white/10 shadow-2xl">
-            <div className="px-4 pt-4 pb-6 space-y-2">
-              {navItems.map((item, index) => {
-                const IconComponent = item.icon;
-                return (
-                  <a
-                    key={item.path}
-                    href={item.path}
-                    onClick={closeMobileMenu}
-                    className={`group flex items-center w-full px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 hover:scale-105 ${
-                      currentPath === item.path
-                        ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
-                        : 'text-gray-300 hover:text-white hover:bg-white/10'
-                    }`}
-                    style={{ 
-                      animationDelay: `${index * 100}ms`,
-                      animation: isMobileMenuOpen ? 'slideInLeft 0.5s ease-out forwards' : 'none'
-                    }}
-                  >
-                    <IconComponent className="mr-4 h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
-                    {item.label}
-                  </a>
-                );
-              })}
-
-              {/* Social Icons - Mobile */}
-              <div className="flex justify-center space-x-6 pt-6 border-t border-white/10 mt-4">
-                {[
-                  { Icon: Github, url: 'https://github.com/fahad1722' },
-                  { Icon: Linkedin, url: 'https://linkedin.com/in/fahad177' },
-                  { Icon: Twitter, url: 'https://twitter.com/fahad177__' }
-                ].map(({ Icon, url }, index) => (
-                  <a
-                    key={index}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-full text-gray-400 hover:text-white hover:bg-white/10 hover:scale-110 transition-all duration-300"
-                  >
-                    <Icon className="w-6 h-6" />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
+      {/* Mobile Bottom Navigation */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-t border-white/20 shadow-2xl z-50">
+        <div className="flex justify-around items-center py-3 px-2">
+          {navItems.map((item) => {
+            const IconComponent = item.icon;
+            return (
+              <a
+                key={item.path}
+                href={item.path}
+                className={`flex flex-col items-center justify-center px-3 py-2 rounded-xl transition-all duration-300 ${
+                  currentPath === item.path
+                    ? 'text-white bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg shadow-blue-500/25'
+                    : 'text-gray-300 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <IconComponent className="w-5 h-5 mb-1" />
+                <span className="text-xs font-medium">{item.label}</span>
+              </a>
+            );
+          })}
         </div>
-
-        {/* Mobile menu backdrop */}
-        {isMobileMenuOpen && (
-          <div 
-            className="fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300"
-            onClick={closeMobileMenu}
-          />
-        )}
+      </div>
 
         <style jsx>{`
           @keyframes slideInLeft {
